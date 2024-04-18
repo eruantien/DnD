@@ -76,7 +76,7 @@
 
             function updateTable(){
                 $("#abilityScoreTable").empty();
-                let totalPointsUsed = 0;
+                totalPointsUsed = 0; // Reset total points used
                 for(let i = 0; i < 6; i++){
                     $("#abilityScoreTable").append(
                         `<tr>
@@ -84,7 +84,7 @@
                             <td>${getPointCost(abilityScores[i])}</td>
                             <td>
                                 <button onclick="decreaseScore(${i})" class="btn btn-danger" ${(abilityScores[i] == 8)? 'disabled' : ''}>Decrease</button>
-                                <button onclick="increaseScore(${i})" class="btn btn-success" ${(abilityScores[i] == 17)? 'disabled' : ''}>Increase</button>
+                                <button onclick="increaseScore(${i})" class="btn btn-success" ${(abilityScores[i] == 17 || totalPointsUsed >= 35)? 'disabled' : ''}>Increase</button>
                             </td>
                         </tr>`
                     );
@@ -94,7 +94,7 @@
             }
 
             function increaseScore(index){
-                if(abilityScores[index] < 17){
+                if(abilityScores[index] < 17 && totalPointsUsed < 35){ // Check total points used
                     abilityScores[index]++;
                     updateTable();
                 }
