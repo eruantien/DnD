@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e DPR Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        button[type="button"] {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+            
+        h1 {
+            text-align: left;
+            color: #0B5ED7;
+        }
+            
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+            
+        li {
+            border: 1px solid #DEE2E6;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+            
+        li:hover {
+            transform: scale(1.05);
+        }
+            
+        a {
+            color: #0A58CA;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #d3d3d3;
+        }
+
+        th:first-child,
+        td:first-child {
+            text-align: left;
+        }
+
+        .table-container {
+        padding: 40px;
+        overflow-x: auto; /* Add horizontal scroll if needed */
+        }
+
+        .advanced-options-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            width: fit-content;
+            margin: 0 auto;
+            transition: background-color 0.3s;
+        }
+
+        .advanced-options-button:hover {
+            background-color: #0056b3;
+        }
+
+        .advanced-options {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleAdvancedFields() {
+            var advancedFields = document.getElementById("advancedFields");
+            var currentDisplay = window.getComputedStyle(advancedFields).display;
+
+            if (currentDisplay === "none") {
+                advancedFields.style.display = "block";
+            } else {
+                advancedFields.style.display = "none";
+            }
+        }
+
+        function calculateDPR() {
+            // Get input values
+            var baseAttackModifier = parseInt(document.getElementById("inputAttackModifier").value) || +0;
+            var damageInput = document.getElementById("inputDamage").value.trim() || 0;
+            var numAttacks = parseInt(document.getElementById("inputNumAttacks").value) || 0;
+            var onceDamageInput = document.getElementById("inputOnceDamage").value.trim();
+            var noMultiDamageInput = document.getElementById("inputNonMultiplyDamage").value.trim();
+            var critOnlyDamageInput = document.getElementById("inputCritOnlyDamage").value.trim();
+            var critOnlyNmDamageInput = document.getElementById("inputCritOnlyNmDamage").value.trim();
+            
+            // Get advanced option values
+            var elvenAccuracy = document.getElementById("elvenAccuracyCheckbox").checked;
+            var sharpshooter = document.getElementById("sharpshooterCheckbox").checked;
+            var critRange = parseInt(document.getElementById("inputCritRange").value) || 20; // Default to 20
+
+//----------Main Damage---------------------------------------------------------------//
+            // Parse damage input
+            var damageRegex = /(\d+d\d+|\d+)([+-]\d+)?/g;
+            var damageMatches;
+            var totalDamage = 0;
+            var totalCritDamage = 0;
+
+            while ((damageMatches = damageRegex.exec(damageInput)) !== null) {
+                var damageComponent = damageMatches[1];
+                var modifier = damageMatches[2] ? parseInt(damageMatches[2]) : 0;
+                modifier = sharpshooter ? modifier+10: modifier;
+
+                if (damageComponent.includes('d')) {
+                    // It's dice notation
+                    var diceInfo = damageComponent.split('d');
+                    var numDice = parseInt(diceInfo[0]);
+                    var numSides = parseInt(diceInfo[1]);
+
+                    // Calculate average damage for this dice type
+                    var averageDamage = (numDice * (numSides + 1) / 2) + modifier;
+                    var averageCritDamage = ((numDice * (numSides + 1) / 2) * 2) + modifier;
+
+                    // Add to total damage
+                    totalDamage += averageDamage;
+                    totalCritDamage += averageCritDamage;
+                } else {
+                    // It's a flat damage value
+                    totalDamage += parseInt(damageComponent) + modifier;
+                    totalCritDamage += parseInt(damageComponent) + modifier;
+                }
+                
+            }
+//----------Once Per Turn Damage---------------------------------------------------------------//
+            // Parse once per turn damage input
+            var onceDamageRegex = /(\d+d\d+|\d+)([+-]\d+)?/g;
+            var onceDamageMatches;
+            var onceDamage = 0;
+            var onceCritDamage = 0;
+
+            while ((onceDamageMatches = onceDamageRegex.exec(onceDamageInput)) !== null) {
+                var onceDamageComponent = onceDamageMatches[1];
+                var onceModifier = onceDamageMatches[2] ? parseInt(onceDamageMatches[2]) : 0;
+
+                if (onceDamageComponent.includes('d')) {
+                    // It's dice notation
+                    var onceDiceInfo = onceDamageComponent.split('d');
+                    var onceNumDice = parseInt(onceDiceInfo[0]);
+                    var onceNumSides = parseInt(onceDiceInfo[1]);
+
+                    // Calculate average damage for this dice type
+                    var averageOnceDamage = (onceNumDice * (onceNumSides + 1) / 2) + onceModifier;
+                    var averageOnceCritDamage = ((onceNumDice * (onceNumSides + 1) / 2) * 2) + onceModifier;
+
+                    // Set once per turn damage
+                    onceDamage = averageOnceDamage;
+                    onceCritDamage = averageOnceCritDamage;
+                } else {
+                    // It's a flat damage value
+                    onceDamage = parseInt(onceDamageComponent) + onceModifier;
+                    onceCritDamage = parseInt(onceDamageComponent) + onceModifier;
+                }
+            }
+//----------Non Multiplied Damage---------------------------------------------------------------//
+            // Parse Non Multiplied damage input
+            var noMultiDamageRegex = /(\d+d\d+|\d+)([+-]\d+)?/g;
+            var noMultiDamageMatches;
+            var noMultiDamage = 0;
+
+            while ((noMultiDamageMatches = noMultiDamageRegex.exec(noMultiDamageInput)) !== null) {
+                var noMultiDamageComponent = noMultiDamageMatches[1];
+                var noMultiModifier = noMultiDamageMatches[2] ? parseInt(noMultiDamageMatches[2]) : 0;
+
+                if (noMultiDamageComponent.includes('d')) {
+                    // It's dice notation
+                    var noMultiDiceInfo = noMultiDamageComponent.split('d');
+                    var noMultiNumDice = parseInt(noMultiDiceInfo[0]);
+                    var noMultiNumSides = parseInt(noMultiDiceInfo[1]);
+
+                    // Calculate average damage for this dice type
+                    var averageNoMultiDamage = (noMultiNumDice * (noMultiNumSides + 1) / 2) + noMultiModifier;
+
+                    // Set Non Multiplied damage
+                    noMultiDamage = averageNoMultiDamage;
+                } else {
+                    // It's a flat damage value
+                    noMultiDamage = parseInt(noMultiDamageComponent) + noMultiModifier;
+                }
+            }
+//----------Crit Only Damage---------------------------------------------------------------//
+            // Parse Crit Only damage input
+            var critOnlyDamageRegex = /(\d+d\d+|\d+)([+-]\d+)?/g;
+            var critOnlyDamageMatches;
+            var critOnlyDamage = 0;
+
+            while ((critOnlyDamageMatches = critOnlyDamageRegex.exec(critOnlyDamageInput)) !== null) {
+                var critOnlyDamageComponent = critOnlyDamageMatches[1];
+                var critOnlyModifier = critOnlyDamageMatches[2] ? parseInt(critOnlyDamageMatches[2]) : 0;
+
+                if (critOnlyDamageComponent.includes('d')) {
+                    // It's dice notation
+                    var critOnlyDiceInfo = critOnlyDamageComponent.split('d');
+                    var critOnlyNumDice = parseInt(critOnlyDiceInfo[0]);
+                    var critOnlyNumSides = parseInt(critOnlyDiceInfo[1]);
+
+                    // Calculate average damage for this dice type
+                    var averageCritOnlyDamage = ((critOnlyNumDice * (critOnlyNumSides + 1) / 2) * 2) + critOnlyModifier;
+
+                    // Set once per turn damage
+                    critOnlyDamage = averageCritOnlyDamage;
+                } else {
+                    // It's a flat damage value
+                    critOnlyDamage = parseInt(critOnlyDamageComponent) + critOnlyModifier;
+                }
+            }
+//----------Crit Only Damage (Not Multiplied)-------------------------------------------------------//
+            // Parse Crit Only damage input
+            var critOnlyNmDamageRegex = /(\d+d\d+|\d+)([+-]\d+)?/g;
+            var critOnlyNmDamageMatches;
+            var critOnlyNmDamage = 0;
+
+            while ((critOnlyNmDamageMatches = critOnlyNmDamageRegex.exec(critOnlyNmDamageInput)) !== null) {
+                var critOnlyNmDamageComponent = critOnlyNmDamageMatches[1];
+                var critOnlyNmModifier = critOnlyNmDamageMatches[2] ? parseInt(critOnlyNmDamageMatches[2]) : 0;
+
+                if (critOnlyNmDamageComponent.includes('d')) {
+                    // It's dice notation
+                    var critOnlyNmDiceInfo = critOnlyNmDamageComponent.split('d');
+                    var critOnlyNmNumDice = parseInt(critOnlyNmDiceInfo[0]);
+                    var critOnlyNmNumSides = parseInt(critOnlyNmDiceInfo[1]);
+
+                    // Calculate average damage for this dice type
+                    var averageCritOnlyNmDamage = (critOnlyNmNumDice * (critOnlyNmNumSides + 1) / 2) + critOnlyNmModifier;
+
+                    // Set once per turn damage
+                    critOnlyNmDamage = averageCritOnlyNmDamage;
+                } else {
+                    // It's a flat damage value
+                    critOnlyNmDamage = parseInt(critOnlyNmDamageComponent) + critOnlyNmModifier;
+                }
+            }
+//----------Final Damage Calculation-----------------------------------------------------//
+            totalDamage = totalDamage + noMultiDamage;
+            totalCritDamage = totalCritDamage + noMultiDamage + critOnlyDamage + critOnlyNmDamage;
+                
+//----------Chances to Hit---------------------------------------------------------------//
+            
+            // Calculate modified attack and damage modifiers for Sharpshooter feat
+            var attackModifier = sharpshooter ? baseAttackModifier - 5 : baseAttackModifier;
+
+            // Initialize variables for table creation
+            var tableData = "";
+
+            // Loop through AC values from 10 to 25
+            for (var enemyAC = 10; enemyAC <= 25; enemyAC++) {
+                // Calculate chance to hit and chance to crit
+                var hitChance = Math.min(0.95, Math.max(0.05, (21 - (enemyAC - attackModifier)) / 20)); // Cap at 0.05 and 0.95
+                var critChance = (21 - critRange) / 20; // Critical hit range is based on natural 20
+
+                // Calculate chance to hit and crit with advantage and disadvantage
+                var hitChanceAdvantage = elvenAccuracy ? 1 - Math.pow(1 - hitChance, 3) : 1 - Math.pow(1 - hitChance, 2);
+                var hitChanceDisadvantage = Math.pow(hitChance, 2);
+                var critChanceAdvantage = elvenAccuracy ? 1 - Math.pow(1 - critChance, 3) : 1 - Math.pow(1 - critChance, 2);
+                var critChanceDisadvantage = Math.pow(critChance, 2);
+
+                // Calculate chance to hit once
+                var hitChanceDisadvantageOnce = 1 - Math.pow((1 - hitChanceDisadvantage), numAttacks);
+                var hitChanceAdvantageOnce = 1 - Math.pow((1 - hitChanceAdvantage), numAttacks);
+                var hitChanceOnce = 1 - Math.pow((1 - hitChance), numAttacks);
+
+                // Calculate DPR for normal, advantage, and disadvantage
+                var dprNormal = ((hitChance - critChance) * totalDamage) + (critChance * totalCritDamage);
+                var dprAdvantage = ((hitChanceAdvantage - critChanceAdvantage) * totalDamage) + (critChanceAdvantage * totalCritDamage);
+                var dprDisadvantage = ((hitChanceDisadvantage - critChanceDisadvantage) * totalDamage) + (critChanceDisadvantage * totalCritDamage);
+
+                // Calculate DPR for once per turn damage with advantage and disadvantage
+                var dprOnceNormal = ((hitChanceOnce - critChance) * onceDamage) + (critChance * onceCritDamage);
+                var dprOnceAdvantage = ((hitChanceAdvantageOnce - critChanceAdvantage) * onceDamage) + (critChanceAdvantage * onceCritDamage);
+                var dprOnceDisadvantage = ((hitChanceDisadvantageOnce - critChanceDisadvantage) * onceDamage) + (critChanceDisadvantage * onceCritDamage);
+
+                // Calculate average DPR values
+                var averageDPRNormal = (dprNormal * numAttacks) + dprOnceNormal;
+                var averageDPRAdvantage = (dprAdvantage * numAttacks) + dprOnceAdvantage;
+                var averageDPRDisadvantage = (dprDisadvantage * numAttacks) + dprOnceDisadvantage;
+
+                // Append data to tableData variable
+                tableData += "<tr><td>" + enemyAC + "</td><td>" + averageDPRNormal.toFixed(2) + "</td><td>" + averageDPRAdvantage.toFixed(2) + "</td><td>" + averageDPRDisadvantage.toFixed(2) + "</td></tr>";
+            }
+
+            // Update table with calculated data
+            document.getElementById("dprTableBody").innerHTML = tableData;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <ul>
+            <li><a href="https://eruantien.github.io/DnD/" target="_self">Home Page</a></li>
+        </ul>
+    </div>
+    <h2 style="text-align: center;">D&D 5e DPR Calculator</h2>
+
+    <form>
+        <label for="inputAttackModifier">Enter attack bonus (e.g., +7):</label><br>
+        <input type="text" id="inputAttackModifier" name="inputAttackModifier"><br>
+
+        <label for="inputDamage">Enter damage (e.g., 1d10+4, 6):</label><br>
+        <input type="text" id="inputDamage" name="inputDamage"><br>
+
+        <label for="inputNumAttacks">Enter number of attacks per round:</label><br>
+        <input type="text" id="inputNumAttacks" name="inputNumAttacks"><br>
+
+        <button type="button" onclick="calculateDPR()">Calculate DPR</button>
+    </form>
+
+    <div class="advanced-options-button" onclick="toggleAdvancedFields()">Advanced Options &#9660;</div>
+
+        <div class="advanced-options" id="advancedFields">
+            <label for="inputOnceDamage">Enter once per turn damage:</label>
+            <input type="text" id="inputOnceDamage" name="inputOnceDamage"><br>
+
+            <label for="inputNonMultiplyDamage">Enter damage not multiplied on a crit:</label>
+            <input type="text" id="inputNonMultiplyDamage" name="inputNonMultiplyDamage"><br>
+
+            <label for="inputCritOnlyDamage">Enter which only occurs on a crit:</label>
+            <input type="text" id="inputCritOnlyDamage" name="inputCritOnlyDamage"><br>
+
+            <label for="inputCritOnlyNmDamage">Enter which only occurs on a crit (not Multiplied):</label>
+            <input type="text" id="inputCritOnlyNmDamage" name="inputCritOnlyNmDamage"><br>
+
+            <label for="inputCritRange">Critical hit range (e.g., "20", "18", "10"):</label>
+            <input type="text" id="inputCritRange" name="inputCritRange"><br>
+
+            <input type="checkbox" id="elvenAccuracyCheckbox" name="elvenAccuracyCheckbox">
+            <label for="elvenAccuracyCheckbox">Elven Accuracy</label><br>
+
+            <input type="checkbox" id="sharpshooterCheckbox" name="sharpshooterCheckbox">
+            <label for="sharpshooterCheckbox">Sharpshooter</label><br>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead id="dprTableHeader">
+                <tr>
+                    <th>Target AC</th>
+                    <th>Normal DPR</th>
+                    <th>Advantage DPR</th>
+                    <th>Disadvantage DPR</th>
+                </tr>
+            </thead>
+            <tbody id="dprTableBody">
+                <!-- Table data will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
+
