@@ -97,6 +97,8 @@
     let abilityScores = [8, 8, 8, 8, 8, 8]; // Initialize all scores to 8
     let bonuses = [0, 0, 0, 0, 0, 0]; // Initialize all bonuses to 0
 
+    const abilityNames = ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"]; // Define ability names
+
     function updateTable() {
         $("#abilityScoreTable").empty();
         totalPointsUsed = 0; // Reset total points used
@@ -106,6 +108,7 @@
             const totalScore = baseScore + bonus;
             $("#abilityScoreTable").append(
                 `<tr>
+                    <td>${abilityNames[i]}</td>
                     <td>${baseScore}</td>
                     <td>${getPointCost(baseScore)}</td>
                     <td class="control-buttons">
@@ -124,13 +127,13 @@
     }
 
     function increaseScore(index) {
-    const pointCostIncrease = getPointCost(abilityScores[index] + 1) - getPointCost(abilityScores[index]);
-    if (totalPointsUsed + pointCostIncrease <= 35 && abilityScores[index] < 17) {
-        abilityScores[index]++;
-        totalPointsUsed += pointCostIncrease;
-        updateTable();
+        const pointCostIncrease = getPointCost(abilityScores[index] + 1) - getPointCost(abilityScores[index]);
+        if (totalPointsUsed + pointCostIncrease <= 35 && abilityScores[index] < 17) {
+            abilityScores[index]++;
+            totalPointsUsed += pointCostIncrease;
+            updateTable();
+        }
     }
-}
 
     function decreaseScore(index) {
         if (abilityScores[index] > 8) {
