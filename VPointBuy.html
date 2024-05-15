@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #F8F9FA;
             color: #212529;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
@@ -26,24 +28,26 @@
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        h1, h2, h3 {
+        h2, h3 {
             color: #333;
         }
 
+        h1 {
+            text-align: left;
+            color: #0A58CA;
+        }
+            
         ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
-
+            
         li {
-            border: 1px solid #DEE2E6;
             margin-bottom: 10px;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
-
+            
         li:hover {
             transform: scale(1.05);
         }
@@ -65,14 +69,61 @@
         .control-buttons button {
             margin-right: 5px;
         }
+
+        .navigation {
+    background-color: #0A58CA;
+    color: #fff;
+    padding-left: 20px; /* Adjust padding as needed */
+    height: 60px; /* Adjust height as needed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    margin-right: 10px;
+    flex: 1;
+}
+
+.nav-list {
+    list-style-type: none;
+    padding: 0px;
+    padding-top: 1px;
+    margin: 0;
+    display: flex;
+    flex: 1;
+}
+
+.nav-list li {
+    margin-right: 0px;
+}
+
+.nav-list li:last-child {
+    margin-right: 0;
+}
+
+.nav-list li a {
+    color: #fff;
+    text-decoration: none;
+    display: block; /* Ensure the links take up full height */
+    padding: 10px 15px; /* Add padding to increase clickable area */
+    font-weight: bold;
+}
+
+.nav-list li a:hover {
+    text-decoration: none;
+}
     </style>
 </head>
 <body>
-<div class="container">
-    <ul>
-        <li><a href="https://eruantien.github.io/DnD/" target="_self">Home Page</a></li>
-    </ul>
-</div>
+    <div class="navigation">
+        <img src="images/DnD-Symbol.png" alt="Logo" width="60" height="60">
+        <ul class="nav-list">
+            <li><a href="https://eruantien.github.io/DnD/" target="_self">Home</a></li>
+            <li><a href="https://eruantien.github.io/DnD/DPR.html" target="_self">DPR</a></li>
+            <li><a href="https://eruantien.github.io/DnD/VPointBuy.html" target="_self">Point Buy</a></li>
+        </ul>
+    </div>
 <div class="container mt-5 main-container">
     <h1>D&D 5e Ability Score Calculator</h1>
     <table class="table">
