@@ -6,34 +6,70 @@
     <title>Home Page</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #F8F9FA;
             color: #212529;
+            margin: 0;
+            padding: 0;
         }
-        
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        button[type="button"] {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button[type="button"] {
+            background-color: #0A58CA;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="button"]:hover {
+            background-color: #0A58CA;
+        }
         .container {
             max-width: 600px;
             margin: auto;
             padding: 20px;
         }
             
-        h1, h2, h3 {
-            color: #333;
+        h1 {
+            text-align: left;
+            color: #0A58CA;
         }
             
         ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
             
         li {
-            border: 1px solid #DEE2E6;
             margin-bottom: 10px;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
             
@@ -49,15 +85,111 @@
         a:hover {
             text-decoration: underline;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #d3d3d3;
+        }
+
+        th:first-child,
+        td:first-child {
+            text-align: left;
+        }
+
+        .table-container {
+            padding: 40px;
+            overflow-x: auto; /* Add horizontal scroll if needed */
+        }
+
+        .advanced-options-button {
+            background-color: #0A58CA;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .advanced-options-button:hover {
+            background-color: #0056b3;
+        }
+
+        .advanced-options {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: none;
+        }
+
+        /* Navigation Styles */
+        .navigation {
+    background-color: #0A58CA;
+    color: #fff;
+    padding-left: 20px; /* Adjust padding as needed */
+    height: 60px; /* Adjust height as needed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    margin-right: 10px;
+    flex: 1;
+}
+
+.nav-list {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0;
+    display: flex;
+    flex: 1;
+}
+
+.nav-list li {
+    margin-right: 0px;
+}
+
+.nav-list li:last-child {
+    margin-right: 0;
+}
+
+.nav-list li a {
+    color: #fff;
+    text-decoration: none;
+    display: block; /* Ensure the links take up full height */
+    padding: 10px 15px; /* Add padding to increase clickable area */
+    font-weight: bold;
+}
+
+.nav-list li a:hover {
+    text-decoration: none;
+}
     </style>
     <title>Home</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Eruantien's D&D Calculators</h1>
-        <ul>
-            <li><a href="https://eruantien.github.io/DnD/DPR.html" target="_self">D&D Damage Per Round Calculator</a></li>
-            <li><a href="https://eruantien.github.io/DnD/VPointBuy.html" target="_self">Variant Point Buy Calculator</a></li>
+    <div class="navigation">
+        <img src="images/DnD-Symbol.png" alt="Logo" width="60" height="60">
+        <ul class="nav-list">
+            <li><a href="https://eruantien.github.io/DnD/" target="_self">Home</a></li>
+            <li><a href="https://eruantien.github.io/DnD/DPR.html" target="_self">DPR</a></li>
+            <li><a href="https://eruantien.github.io/DnD/VPointBuy.html" target="_self">Point Buy</a></li>
         </ul>
     </div>
 </body>
