@@ -150,20 +150,20 @@
 }
 
 .nav-logo {
-    padding-right: 10px;
-    flex: 1; /* Make the logo flexible */
+    margin-right: 10px;
+    flex: 1;
 }
 
 .nav-list {
     list-style-type: none;
-    padding: 0;
+    padding: 0px;
     margin: 0;
     display: flex;
-    flex: 1; /* Ensure the links don't flex */
+    flex: 1;
 }
 
 .nav-list li {
-    margin-right: 20px;
+    margin-right: 0px;
 }
 
 .nav-list li:last-child {
@@ -173,10 +173,13 @@
 .nav-list li a {
     color: #fff;
     text-decoration: none;
+    display: block; /* Ensure the links take up full height */
+    padding: 10px 15px; /* Add padding to increase clickable area */
+    font-weight: bold;
 }
 
 .nav-list li a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
     </style>
     <script>
@@ -404,7 +407,7 @@
     <div class="navigation">
         <img src="images/DnD-Symbol.png" alt="Logo" width="60" height="60">
         <ul class="nav-list">
-            <li><a href="https://eruantien.github.io/DnD/" target="_self">Home Page</a></li>
+            <li><a href="https://eruantien.github.io/DnD/" target="_self">Home</a></li>
             <li><a href="https://eruantien.github.io/DnD/DPR.html" target="_self">DPR</a></li>
             <li><a href="https://eruantien.github.io/DnD/VPointBuy.html" target="_self">Point Buy</a></li>
         </ul>
