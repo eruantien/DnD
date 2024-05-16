@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,12 +17,14 @@
         }
 
         h1, h2, h3 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #333;
         }
 
         form {
             background-color: #fff;
             padding: 20px;
+            padding-top: 5px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
@@ -43,7 +46,7 @@
         }
 
         button[type="button"] {
-            background-color: #0A58CA;
+            background-color: #315585;
             color: #fff;
             border: none;
             cursor: pointer;
@@ -51,17 +54,13 @@
         }
 
         button[type="button"]:hover {
-            background-color: #0A58CA;
+            background-color: 1d4177;
         }
         .container {
-            max-width: 600px;
-            margin: auto;
+            max-width: 620px;
+            margin: 10px auto;
             padding: 20px;
-        }
-            
-        h1 {
-            text-align: left;
-            color: #0A58CA;
+            padding-top: 38px;
         }
             
         ul {
@@ -80,7 +79,7 @@
         }
             
         a {
-            color: #0A58CA;
+            color: 1d4177;
             text-decoration: none;
         }
         
@@ -91,7 +90,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         th,
@@ -112,11 +111,12 @@
 
         .table-container {
             padding: 40px;
+            padding-top: 14px;
             overflow-x: auto; /* Add horizontal scroll if needed */
         }
 
         .advanced-options-button {
-            background-color: #0A58CA;
+            background-color: #315585;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -127,7 +127,7 @@
         }
 
         .advanced-options-button:hover {
-            background-color: #0056b3;
+            background-color: #315585;
         }
 
         .advanced-options {
@@ -141,13 +141,14 @@
 
         /* Navigation Styles */
         .navigation {
-    background-color: #0A58CA;
+    background-color: #315585;
     color: #fff;
     padding-left: 20px; /* Adjust padding as needed */
     height: 60px; /* Adjust height as needed */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 }
 
 .nav-logo {
@@ -411,20 +412,20 @@
             <li><a href="https://eruantien.github.io/DnD/" target="_self">Home</a></li>
             <li><a href="https://eruantien.github.io/DnD/DPR.html" target="_self">DPR</a></li>
             <li><a href="https://eruantien.github.io/DnD/VPointBuy.html" target="_self">Point Buy</a></li>
+            <li><a href="https://the-world-of-embara.notion.site/The-World-of-Embara-2be45aa730ef4912acf216702544971d" target="_blank">Embara Wiki</a></li>
         </ul>
-        <h1>D&D 5e DPR Calculator</h1>
     </div>
     <div class="container">
-        <h2 style="text-align: center;">D&D 5e DPR Calculator</h2>
 
         <form>
-        <label for="inputAttackModifier">Enter attack bonus (e.g., +7):</label><br>
+        <h1>D&D 5e DPR Calculator</h1>
+        <label for="inputAttackModifier">Enter Attack Bonus (e.g., +7):</label><br>
         <input type="text" id="inputAttackModifier" name="inputAttackModifier"><br>
 
-        <label for="inputDamage">Enter damage (e.g., 1d10+4, 6):</label><br>
+        <label for="inputDamage">Enter Damage (e.g., 1d10+4, 6):</label><br>
         <input type="text" id="inputDamage" name="inputDamage"><br>
 
-        <label for="inputNumAttacks">Enter number of attacks per round:</label><br>
+        <label for="inputNumAttacks">Enter Number of Attacks Per Round:</label><br>
         <input type="text" id="inputNumAttacks" name="inputNumAttacks"><br>
 
         <button type="button" onclick="calculateDPR()">Calculate DPR</button>
