@@ -17,9 +17,10 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 620px;
             margin: auto;
             padding: 20px;
+            padding-top: 10px;
         }
 
         .main-container {
@@ -27,15 +28,14 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 50px; /* Adjust margin-top as needed */
+            margin-bottom: 10px; /* Adjust margin-bottom as needed */
         }
 
-        h2, h3 {
+        h1, h2, h3 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 9px;
             color: #333;
-        }
-
-        h1 {
-            text-align: left;
-            color: #0A58CA;
         }
             
         ul {
@@ -54,7 +54,7 @@
         }
 
         a {
-            color: #0A58CA;
+            color: #315585;
             text-decoration: none;
         }
 
@@ -72,48 +72,49 @@
         }
 
         .navigation {
-    background-color: #0A58CA;
-    color: #fff;
-    padding-left: 20px; /* Adjust padding as needed */
-    height: 60px; /* Adjust height as needed */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+            background-color: #315585;
+            color: #fff;
+            padding-left: 20px; /* Adjust padding as needed */
+            height: 60px; /* Adjust height as needed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+        }
 
-.nav-logo {
-    margin-right: 10px;
-    flex: 1;
-}
+        .nav-logo {
+            margin-right: 10px;
+            flex: 1;
+        }
 
-.nav-list {
-    list-style-type: none;
-    padding: 0px;
-    padding-top: 1px;
-    margin: 0;
-    display: flex;
-    flex: 1;
-}
+        .nav-list {
+            list-style-type: none;
+            padding: 0px;
+            padding-top: 1px;
+            margin: 0;
+            display: flex;
+            flex: 1;
+        }
 
-.nav-list li {
-    margin-right: 0px;
-}
+        .nav-list li {
+            margin-right: 0px;
+        }
 
-.nav-list li:last-child {
-    margin-right: 0;
-}
+        .nav-list li:last-child {
+            margin-right: 0;
+        }
 
-.nav-list li a {
-    color: #fff;
-    text-decoration: none;
-    display: block; /* Ensure the links take up full height */
-    padding: 10px 15px; /* Add padding to increase clickable area */
-    font-weight: bold;
-}
+        .nav-list li a {
+            color: #fff;
+            text-decoration: none;
+            display: block; /* Ensure the links take up full height */
+            padding: 10px 15px; /* Add padding to increase clickable area */
+            font-weight: bold;
+        }
 
-.nav-list li a:hover {
-    text-decoration: none;
-}
+        .nav-list li a:hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -123,18 +124,20 @@
             <li><a href="https://eruantien.github.io/DnD/" target="_self">Home</a></li>
             <li><a href="https://eruantien.github.io/DnD/DPR.html" target="_self">DPR</a></li>
             <li><a href="https://eruantien.github.io/DnD/VPointBuy.html" target="_self">Point Buy</a></li>
+            <li><a href="https://the-world-of-embara.notion.site/The-World-of-Embara-2be45aa730ef4912acf216702544971d" target="_blank">Embara Wiki</a></li>
         </ul>
     </div>
 <div class="container mt-5 main-container">
-    <h1>D&D 5e Ability Score Calculator</h1>
+    <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; font-size: 32px;">D&D 5e Ability Score Calculator</h1>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Ability Score</th>
+            <th scope="col">Abilities</th>
+            <th scope="col">Scores</th>
             <th scope="col">Cost</th>
             <th scope="col">Controls</th>
-            <th scope="col">Bonus</th>
-            <th scope="col">Total Score</th>
+            <th scope="col">Bonuses</th>
+            <th scope="col">Total Scores</th>
         </tr>
         </thead>
         <tbody id="abilityScoreTable">
