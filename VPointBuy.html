@@ -293,8 +293,10 @@
                     cost += 1; // Points 9-13 cost 1 each
                 } else if (i < 15) {
                     cost += 2; // Points 14-15 cost 2 each
+                } else if (i < 17) {
+                    cost += 3; // Points 16-17 cost 3 each
                 } else {
-                    cost += 3; // Points 16+ cost 3 each
+                    cost += 4; // Points 18+ cost 4 each
                 }
             }
             return cost;
