@@ -162,11 +162,11 @@
         </div>
         <div class="settings-row">
             <label for="maxScore">Maximum Score:</label>
-            <input type="number" id="maxScore" class="form-control settings-input" value="17" min="1" max="20" onchange="updateSettings()">
+            <input type="number" id="maxScore" class="form-control settings-input" value="15" min="1" max="20" onchange="updateSettings()">
         </div>
         <div class="settings-row">
             <label for="totalPoints">Total Points Available:</label>
-            <input type="number" id="totalPoints" class="form-control settings-input" value="35" min="1" max="200" onchange="updateSettings()">
+            <input type="number" id="totalPoints" class="form-control settings-input" value="27" min="1" max="200" onchange="updateSettings()">
         </div>
     </div>
 
@@ -193,15 +193,15 @@
     let abilityScores = [8, 8, 8, 8, 8, 8]; // Initialize all scores to 8 (the baseline)
     let bonuses = [0, 0, 0, 0, 0, 0]; // Initialize all bonuses to 0
     let minScore = 8;
-    let maxScore = 17;
-    let totalPointsAvailable = 35;
+    let maxScore = 15;
+    let totalPointsAvailable = 27;
 
     const abilityNames = ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"]; // Define ability names
 
     function updateSettings() {
         const newMinScore = parseInt($("#minScore").val()) || 8;
-        const newMaxScore = parseInt($("#maxScore").val()) || 17;
-        const newTotalPoints = parseInt($("#totalPoints").val()) || 35;
+        const newMaxScore = parseInt($("#maxScore").val()) || 15;
+        const newTotalPoints = parseInt($("#totalPoints").val()) || 27;
 
         // Validate settings
         if (newMinScore >= newMaxScore) {
